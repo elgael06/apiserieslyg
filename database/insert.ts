@@ -31,15 +31,13 @@ export default async () => ({
             fecha date,
             hora datetime
         )`);
-
-        this.db.close();
     },
     async newEmpresa(
         nombre      : String,
         telefono    : String,
         direccion   : String
     ){
-        this.existTable();
+        await this.existTable();
         const res = await this.db.run('INSERT INTO Empresa (nombre, telefono, direccion) values(?,?,?)',[nombre, telefono, direccion]);
         this.db.close();
         console.log('listo',res);
@@ -49,14 +47,15 @@ export default async () => ({
         nombre:String,
         apPaterno: String,
         apMaterno: String,
-        puesto:Int16Array
+        puesto:number
     ){
-        this.existTable();
-        const res = await this.db.run('INSERT INTO Usuarios (nombre, apPaterno, apMaterno, apMaterno, puesto) values(????)',
+        await this.existTable();
+        await this.db.run('INSERT INTO Usuarios (nombre, apPaterno, apMaterno, puesto) values(?,?,?,?)',
             [nombre,apMaterno,apPaterno,puesto]);
+        const id = await this.db.all('select * from Usuarios order by id desc LIMIT 1')
         this.db.close();
-        console.log('listo',res);
-        return res;
+        console.log('listo',id);
+        return id;
     },
     async loginUser(
         idUsuario:number,

@@ -5,7 +5,8 @@ import rootReducer from './reducers';
 import {initialState as usuario} from './reducers/usuario';
 
 const initialState = ({
-    usuario
+    usuario,
+    listaUsuarios:[]
 });
 const midleware = [thunk];
 const store = createStore(rootReducer,initialState,composeWithDevTools(applyMiddleware(...midleware)));

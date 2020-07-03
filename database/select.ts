@@ -39,7 +39,6 @@ export default async ()=>({
             console.log(`usuarios => `, JSON.stringify(usuario,null,2));
             this.db.close();
             return {error:false,data:usuario};
-
         }catch(e){
             return {error:true,message:e.toString()};
         }
