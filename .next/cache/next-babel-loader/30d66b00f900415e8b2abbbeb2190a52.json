@@ -1,0 +1,1 @@
+{"ast":null,"code":"import * as types from \"../types\";\nexport default ((state = [], actions) => {\n  switch (actions.type) {\n    case types.GET_USUARIOS:\n      return actions.usuarios;\n\n    default:\n      return state;\n  }\n});","map":null,"metadata":{},"sourceType":"module"}

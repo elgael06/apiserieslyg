@@ -1,15 +1,19 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import InputForm from "../components/InputForm";
+import { useRouter } from "next/router";
 
 
 
 export default ()=>{
     const dispatch = useDispatch();
     const [value,setValue] = useState({
-        nombre:'gael',
-        apPat:'val',
-        apMat:'cast'
+        nombre:'',
+        apPat:'',
+        apMat:''
     });
+    const router = useRouter();
+    
     const sendNuevoUsuario = async ()=>{
         const {nombre, apPat,apMat} = value;
         console.log('usuario: ',value);
@@ -21,7 +25,7 @@ export default ()=>{
         console.log('res: ',res)
         const response = await (await res).json();
         console.log('JSON',response);
-
+        router.back();
     }
 
     
@@ -46,16 +50,3 @@ export default ()=>{
         <button onClick={sendNuevoUsuario}>enviar Nuevo usuario.</button>
     </div>)
 }
-
-const InputForm = ({
-    value ='',
-    event =e=>e,
-    name  =''
-}) =><div style={{margin:10,width:200,display:'inline-block'}}>
-    <label style={{display:'block',textAlign:'start'}}>{name}</label>
-    <input
-        style={{width:'100%'}}
-        onChange={e=>event(e.target.value)}
-        value={value}
-    />
-</div> 

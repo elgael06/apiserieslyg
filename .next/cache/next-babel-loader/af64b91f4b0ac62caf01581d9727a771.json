@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { combineReducers } from 'redux';\nimport usuario from './usuario';\nimport listaUsuarios from './listaUsuarios';\nexport default combineReducers({\n  usuario: usuario,\n  listaUsuarios: listaUsuarios\n});","map":null,"metadata":{},"sourceType":"module"}

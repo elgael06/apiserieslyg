@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { select } from \"../../../database\";\nexport default async function (req, res) {\n  if (req.method == 'POST') {\n    const empresa = await (await select()).allEmpresar();\n    res.json(empresa);\n  } else res.json({\n    message: \"metodo no accesible.\"\n  });\n}","map":null,"metadata":{},"sourceType":"module"}

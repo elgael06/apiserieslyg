@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { select } from \"../../../database\";\nexport default (async (req, res) => {\n  const {\n    id\n  } = req.query;\n  const idEmpresa = parseInt(id.toString());\n  const empresa = await (await select()).idEmpresa(idEmpresa);\n  res.json(empresa);\n});","map":null,"metadata":{},"sourceType":"module"}

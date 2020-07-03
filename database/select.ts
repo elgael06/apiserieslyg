@@ -7,7 +7,6 @@ export default async ()=>({
         try{
             const empresas = await this.db.all('SELECT * FROM Empresa')
                 .catch(()=>[]) || [];
-            console.log("Empresas =>", JSON.stringify(empresas,null,2));
             this.db.close();
             return {error:false,data:empresas};
         }catch(e){
@@ -24,7 +23,6 @@ export default async ()=>({
         try{
             const usuarios = await this.db.all('SELECT * FROM Usuarios')
                 .catch(()=>[]) || [];
-            console.log(`usuarios => `, JSON.stringify(usuarios,null,2));
             this.db.close();
             return {error:false,data:usuarios};
 
@@ -34,9 +32,8 @@ export default async ()=>({
     },
     async idUsuario(id:number){
         try{
-            const usuario = await this.db.run('SELECT * FROM Usuarios where id=?',[id])
+            const usuario = await this.db.get('SELECT * FROM Usuarios where id=?',[id])
                 .catch(()=>[]) || [];
-            console.log(`usuarios => `, JSON.stringify(usuario,null,2));
             this.db.close();
             return {error:false,data:usuario};
         }catch(e){

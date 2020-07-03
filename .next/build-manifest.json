@@ -20,15 +20,11 @@
     "/_polyfills": [
       "static/runtime/polyfills.js"
     ],
-    "/next/dist/pages/_error": [
-      "static/runtime/webpack.js",
-      "static/runtime/main.js"
-    ],
     "/usuarios": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/usuarios/add": [
+    "/usuarios/borrar/[id]": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]
