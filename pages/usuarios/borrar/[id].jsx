@@ -76,7 +76,7 @@ export default () => {
                 checked={!statusDelete} 
                 onChange={e=>setDelete(!statusDelete)} 
             />
-            <label>Decea borrar el Usuario?</label>
+            <label>Borrar el Usuario?</label>
         </div>
         <br />
         <button disabled={statusDelete} onClick={sendEditUsuario}>Borrar usuario.</button>

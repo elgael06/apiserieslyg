@@ -1,0 +1,1 @@
+{"ast":null,"code":"import \"../../../../database\";\nimport _delete from \"../../../../database/delete\";\nexport default (async (req, res) => {\n  const id = req.query['id'];\n  const mensaje = await (await _delete()).idUsuario(parseInt(id.toString()));\n  res.json(mensaje);\n});","map":null,"metadata":{},"sourceType":"module"}
