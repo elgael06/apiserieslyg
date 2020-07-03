@@ -5,10 +5,12 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "test": "node database-test.js "
+    "start": "next start -p $PORT",
+    "heroku-postbuild": "npm run build",
+    "testDB": "node database-test.js "
   },
   "dependencies": {
+    "heroku": "^7.42.2",
     "next": "9.4.4",
     "next-redux-wrapper": "^6.0.2",
     "react": "16.13.1",
