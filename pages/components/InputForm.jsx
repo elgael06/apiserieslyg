@@ -1,4 +1,5 @@
 import React from 'react';
+import {TextField} from '@material-ui/core';
 
 const InputForm = ({
     value ='',
@@ -6,12 +7,12 @@ const InputForm = ({
     name  ='',
     disabled=false
 }) =>(<div style={{margin:10,width:200,display:'inline-block'}}>
-    <label style={{display:'block',textAlign:'start'}}>{name}</label>
-    <input
-        disabled={disabled}
-        style={{width:'100%'}}
+    <TextField 
+        label={name}
         onChange={e=>event(e.target.value)}
         value={value}
+        disabled={disabled}
+        focused={value!=""}
     />
 </div>);
 

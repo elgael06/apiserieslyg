@@ -2,7 +2,9 @@ import getUsuarios from "../../store/actions/getUsuarios";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-
+import { HeadUsuarios, ViewUsuario } from "./components/tabla";
+//estilos
+import './styles/index.scss';
 
 export default ()=>{
     const dispatch = useDispatch();
@@ -16,40 +18,17 @@ export default ()=>{
     console.log(listaUsuarios);
 
     return(
-    <div style={{height:300,textAlign:'center'}}>
-        <button onClick={()=>router.push('/usuarios/add')} style={{float:'right'}}>agregar</button>
+    <div className='container-users' >
+        <button onClick={()=>router.push('/usuarios/add')} className='btn btn-prymary' style={{float:'right'}}>agregar</button>
         <h3>Lista Usuarios:</h3>
         <div  style={{border:'1px solid #bdbdbd',height:300,width:850,overflow:'auto'}}>
             <table style={{width:'100%'}}>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Apeido pat.</th>
-                        <th>Apeido mat.</th>
-                        <th>Puesto</th>
-                        <th>Opcion</th>
-                    </tr>
-                </thead>
+                <HeadUsuarios />
                 <tbody>
-                    {listaUsuarios.map(e=><tr key={e.id}>
-                        <td>{e.id}</td>
-                        <td>{e.nombre}</td>
-                        <td>{e.apPaterno}</td>
-                        <td>{e.apMaterno}</td>
-                        <td><select value={e.puesto } disabled>
-                            <option value='0'>none</option>
-                            <option value='1'>sistemas</option>
-                            <option value='2'>administracion</option>
-                            </select>
-                        </td>
-                        <td>
-                            <button onClick={()=>router.push(`/usuarios/editar/${e.id}`)} >Editar</button>
-                            <button onClick={()=>router.push(`/usuarios/borrar/${e.id}`)} >Borrar</button>
-                        </td>
-                    </tr>)}
+                    {listaUsuarios.map(e=><ViewUsuario e={e} key={e.id} router={router} />)}
                 </tbody>
             </table>
         </div>
     </div>);
 }
+
