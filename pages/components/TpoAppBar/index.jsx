@@ -38,7 +38,7 @@ const TopAppBar = ({onClick})=>{
         dispatch({type:'DONE'});
     }
 
-    return(<AppBar elevation='5' position="fixed">
+    return(<AppBar elevation={5} position="fixed">
     <Toolbar>
       <IconButton onClick={onClick} edge="start" color="inherit" aria-label="menu">
         <Menu />

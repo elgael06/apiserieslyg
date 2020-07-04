@@ -37,7 +37,7 @@ export default ({children})=>{
             onClick={()=>settoggleDrawer(true)}
         />
         <div style={{textAlign:'center',margin:'90px 30px'}}>
-            <Card elevation='10' style={{padding:15,minHeight:450}}>
+            <Card elevation={10} style={{padding:15,minHeight:450}}>
                 {children}
             </Card>
         </div>
