@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { HeadUsuarios, ViewUsuario } from "./components/tabla";
 //estilos
-import './styles/index.scss';
+import styles from './styles/index.scss';
 
 export default ()=>{
     const dispatch = useDispatch();
@@ -18,8 +18,8 @@ export default ()=>{
     console.log(listaUsuarios);
 
     return(
-    <div className='container-users' >
-        <button onClick={()=>router.push('/usuarios/add')} className='btn btn-prymary' style={{float:'right'}}>agregar</button>
+    <div className={styles.container_users} >
+        <button onClick={()=>router.push('/usuarios/add')} className={styles.btn} style={{float:'right'}}>agregar</button>
         <h3>Lista Usuarios:</h3>
         <div  style={{border:'1px solid #bdbdbd',height:300,width:850,overflow:'auto'}}>
             <table style={{width:'100%'}}>
