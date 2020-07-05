@@ -2,7 +2,7 @@ import getUsuarios from "../../store/actions/getUsuarios";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import { HeadUsuarios, ViewUsuario } from "./components/tabla";
+import { HeadUsuarios, ViewUsuario } from "../../components/usuarios/tabla";
 //estilos
 import styles from './styles/index.scss';
 

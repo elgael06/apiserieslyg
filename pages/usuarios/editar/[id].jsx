@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import InputForm from "../../components/InputForm";
+import InputForm from "../../../components/InputForm";
 import { useRouter } from "next/router";
 
 export default () => {
@@ -27,7 +27,6 @@ export default () => {
     const sendEditUsuario = async () => {
         console.log(id);
         const { nombre,apMat,apPat } = value;
-        
         const res = await fetch('/api/usuario/update',{
             method:'POST',body:JSON.stringify(
             {

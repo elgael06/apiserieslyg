@@ -9,6 +9,10 @@
     "static/development/_ssgManifest.js"
   ],
   "pages": {
+    "/": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
     "/_app": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
@@ -20,6 +24,10 @@
     "/_polyfills": [
       "static/runtime/polyfills.js"
     ],
+    "/index": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
     "/usuarios": [
       "static/runtime/webpack.js",
       "static/css/styles.chunk.css",
@@ -27,6 +35,14 @@
       "static/runtime/main.js"
     ],
     "/usuarios/add": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/usuarios/borrar/[id]": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/usuarios/editar/[id]": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]

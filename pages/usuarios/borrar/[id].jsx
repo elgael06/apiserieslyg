@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import InputForm from "../../components/InputForm";
+import InputForm from "../../../components/InputForm";
 import { useRouter } from "next/router";
 
 export default () => {
@@ -26,14 +26,9 @@ export default () => {
     }
 
     const sendEditUsuario = async () => {
-        console.log(id);
-        const { nombre,apMat,apPat } = value;
-        
+        console.log(id);        
         const res = await fetch(`/api/usuario/delete/${id}`,{
-            method:'POST',body:JSON.stringify(
-            {
-                id,
-            })
+            method:'POST',body:JSON.stringify({id})
         });
         const valor = await res.json();
         console.log(valor);   
@@ -47,26 +42,21 @@ export default () => {
     useEffect(()=>{
         obtenerUsuario()
     },[]);
+
     return (<div style={{textAlign:'center'}}>
         <h3>Borrar Usuario : # <b>{id}</b></h3>
 
         <InputForm
-            disabled
             value={value.nombre}
             name='Nombre'
-            event={e=>setValue({...value,nombre:e})}
         />
         <InputForm    
-            disabled 
             value={value.apPat}
             name='ap paterno'
-            event={e=>setValue({...value,apPat:e})}
         />
         <InputForm 
-            disabled
             value={value.apMat}
             name='ap Materno'
-            event={e=>setValue({...value,apMat:e})}
         />
         <br/>
         <div style={{padding:20}} >
@@ -74,7 +64,7 @@ export default () => {
                 style={{margin:10}}
                 type='checkbox'
                 checked={!statusDelete} 
-                onChange={e=>setDelete(!statusDelete)} 
+                onChange={()=>setDelete(!statusDelete)}
             />
             <label>Borrar el Usuario?</label>
         </div>
