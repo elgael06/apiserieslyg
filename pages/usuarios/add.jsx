@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import InputForm from "../../components/InputForm";
 import { useRouter } from "next/router";
+import { Button } from "@material-ui/core";
 
 
 
@@ -47,6 +48,9 @@ export default ()=>{
           event={e=>setValue({...value,apMat:e})}
         />
         <br />
-        <button onClick={sendNuevoUsuario}>enviar Nuevo usuario.</button>
+        <br />
+        <Button  variant='contained' color='primary' onClick={sendNuevoUsuario}>
+            enviar Nuevo usuario.            
+        </Button>
     </div>)
 }

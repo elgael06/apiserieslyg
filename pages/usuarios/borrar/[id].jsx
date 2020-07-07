@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import InputForm from "../../../components/InputForm";
 import { useRouter } from "next/router";
+import { Button } from "@material-ui/core";
+import { CheckBox } from "@material-ui/icons";
 
 export default () => {
     const { query:{id} } = useRouter();
@@ -60,16 +62,31 @@ export default () => {
         />
         <br/>
         <div style={{padding:20}} >
+            <CheckBox 
+                checked={false}
+                
+                color='primary'                                 
+                onClick={()=>setDelete(!statusDelete)}
+            >
+            </CheckBox>
+            <label onClick={()=>setDelete(!statusDelete)}>Borrar el Usuario?</label>
             <input 
                 style={{margin:10}}
                 type='checkbox'
                 checked={!statusDelete} 
                 onChange={()=>setDelete(!statusDelete)}
+                value='Borrar el Usuario?'
             />
-            <label>Borrar el Usuario?</label>
         </div>
         <br />
-        <button disabled={statusDelete} onClick={sendEditUsuario}>Borrar usuario.</button>
+        <br />
+        <Button  
+            variant='contained' 
+            color='secondary'
+            disabled={statusDelete} 
+            onClick={sendEditUsuario}>
+            Borrar usuario.            
+        </Button>    
         
     </div>)
 }

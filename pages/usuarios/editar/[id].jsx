@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import InputForm from "../../../components/InputForm";
 import { useRouter } from "next/router";
+import { Button } from "@material-ui/core";
 
 export default () => {
     const { query:{id} } = useRouter();
@@ -66,7 +67,9 @@ export default () => {
           event={e=>setValue({...value,apMat:e})}
         />
         <br />
-        <button onClick={sendEditUsuario}>enviar cambios usuario.</button>
-        
+        <br />
+        <Button  variant='contained' color='primary' onClick={sendEditUsuario}>
+            enviar Nuevo usuario.            
+        </Button>    
     </div>)
 }

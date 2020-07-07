@@ -1,5 +1,8 @@
 import React from 'react';
 
+import  '../../styles/styles.css'
+import { Button, Select, MenuItem } from '@material-ui/core';
+
 export const HeadUsuarios = ()=>(<thead>
     <tr>
         <th>ID</th>
@@ -16,14 +19,21 @@ export const ViewUsuario = ({e={},router}) =>(<tr>
     <td>{e.nombre}</td>
     <td>{e.apPaterno}</td>
     <td>{e.apMaterno}</td>
-    <td><select value={e.puesto } disabled>
-        <option value='0'>none</option>
-        <option value='1'>sistemas</option>
-        <option value='2'>administracion</option>
-        </select>
+    <td>        
+        <Select value={e.puesto } disabled >
+            <MenuItem value='0'>none</MenuItem>
+            <MenuItem value='1'>sistemas</MenuItem>
+            <MenuItem value='2'>administracion</MenuItem>
+        </Select>
     </td>
     <td>
-        <button onClick={()=>router.push(`/usuarios/editar/${e.id}`)} >Editar</button>
-        <button onClick={()=>router.push(`/usuarios/borrar/${e.id}`)} >Borrar</button>
+        <Button 
+            variant='outlined' 
+            color='primary' 
+            onClick={()=>router.push(`/usuarios/editar/${e.id}`)} >Editar</Button>
+        <Button 
+            variant='outlined' 
+            color='secondary'
+            onClick={()=>router.push(`/usuarios/borrar/${e.id}`)} >Borrar</Button>
     </td>
 </tr>);

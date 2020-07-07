@@ -3,10 +3,9 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { HeadUsuarios, ViewUsuario } from "../../components/usuarios/tabla";
-//estilos
-import styles from './styles/index.scss';
+import { Button, Typography } from "@material-ui/core";
 
-export default ()=>{
+export default function Usuarios(){
     const dispatch = useDispatch();
     const {listaUsuarios} = useSelector(state=>state);
     const router = useRouter()
@@ -18,10 +17,16 @@ export default ()=>{
     console.log(listaUsuarios);
 
     return(
-    <div className={styles.container_users} >
-        <button onClick={()=>router.push('/usuarios/add')} className={styles.btn} style={{float:'right'}}>agregar</button>
-        <h3>Lista Usuarios:</h3>
-        <div  style={{border:'1px solid #bdbdbd',height:300,width:850,overflow:'auto'}}>
+    <div  >
+        <Button 
+            color='primary' 
+            style={{float:'right'}}
+            onClick={()=>router.push('/usuarios/add')}
+            variant='contained'>
+            Agregar
+        </Button>
+        <Typography variant='h5'>Lista Usuarios:</Typography>
+        <div  style={{border:'1px solid #bdbdbd',height:300,width:'85%',overflow:'auto'}}>
             <table style={{width:'100%'}}>
                 <HeadUsuarios />
                 <tbody>
@@ -31,4 +36,6 @@ export default ()=>{
         </div>
     </div>);
 }
+
+
 

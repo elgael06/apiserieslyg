@@ -3,6 +3,8 @@ import { Provider } from 'react-redux';
 import { createWrapper } from 'next-redux-wrapper';
 import store from '../store/store';
 import Layout from '../components/Layout';
+import '../styles/styles.css';
+
 
 class MyApp extends App{
 
@@ -11,6 +13,14 @@ class MyApp extends App{
 
         return(
             <Provider store={store}>
+                <head>
+                    <title>Mi Aplicacion</title>
+                    <meta charset="UTF-8"/>
+                    <meta name="description" content="Web App para api NextJS"/>
+                    <meta name="keywords" content="api-mi-tiendita-web"/>
+                    <meta name="author" content="elgael06@gmail.com"/>
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                </head>
                 <Layout>
                     <Component {...pageProps}>  </Component>
                 </Layout>

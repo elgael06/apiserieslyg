@@ -1,0 +1,32 @@
+
+*{
+    font-family: ubuntu;
+}
+
+.btn{
+    height: 30px;
+    min-width: 55px;
+    padding: 5px;
+    border-radius: 5px;
+    margin: 0 5px;
+    box-shadow:rgba(0, 0, 0, 0.75) -32px -27px 5px -16px;
+}
+.btn:hover{
+    opacity: .85;
+}
+.btn_primary{
+    background-color:rgb(63, 120, 226, 0.8);
+    color: #FFF;
+    border: 1px solid rgba(63, 120, 226);
+}
+.btn_danger{
+    background-color:rgb(226, 63, 63, 0.8);
+    color: #FFF;
+    border: 1px solid rgba(226, 63, 63);
+}
+.btn_success{
+    background-color:rgba(66, 194, 62, 0.8);
+    color: #FFF;
+    border: 1px solid rgba(66, 194, 62);
+}
+

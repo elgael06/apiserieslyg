@@ -1,8 +1,13 @@
 import React, { Fragment } from 'react'
 import { SwipeableDrawer, List, Link, ListItem, ListItemAvatar, ListItemText, Divider, ListItemIcon } from '@material-ui/core';
 import { useSelector } from 'react-redux';
-import { ArrowRight } from '@material-ui/icons';
+import { ArrowRight,People } from '@material-ui/icons';
 import { useRouter } from 'next/router';
+
+const accesos = [
+    {icon:<People />, url:'/usuarios'},
+    {icon:<People />, url:'/usuarios'},
+]
 
 const DrawerLayout = ({settoggleDrawer,toggleDrawer})=>{
     const { usuario } = useSelector(state => state);
@@ -23,18 +28,16 @@ const DrawerLayout = ({settoggleDrawer,toggleDrawer})=>{
         onClose={handleToggleDrawer(false)}>
         <div className='jss276' style={{height:64}}>
             <List  className='user_drawer-bar'>
-                <Link to='/'>
-                <ListItem>
+                <ListItem button onClick={()=>redirect('/')}>
                     <ListItemAvatar>
                         <img 
-                            src={''} 
+                            src={'https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png'} 
                             alt='Avatar' 
-                            height='26'
+                            height='36'
                         />
                     </ListItemAvatar>
-                        <ListItemText style={{color:'#FFF'}} primary='Logo de App' />
+                        <ListItemText primary='Logo de App' />
                 </ListItem>
-                </Link>
             </List>            
         </div>
         <Divider />
@@ -52,7 +55,7 @@ const DrawerLayout = ({settoggleDrawer,toggleDrawer})=>{
                 <ListItemText primary='Menu' />
             </ListItem>
             <Divider />
-                { usuario.id ? []
+                { usuario.id ? accesos
                 .filter(e=>e.icon!=null).map(e=><Fragment key={e.url}>
                     <ListItem  button onClick={()=>redirect(e.url)}>
                         <ListItemIcon >
