@@ -85,7 +85,12 @@ export default () => {
         </section>
         <section className='seccion-crear-sesion'>
             <Typography variant='h5' color='textSecondary'>Sesion</Typography>
-            <br />
+
+            <InputForm 
+                name='Id Usuario'
+                value={id}
+            />
+
             <InputForm 
                 name='password'
                 value={password.value}
@@ -112,6 +117,8 @@ export default () => {
                         </InputAdornment>)
                 }}
             />
+            <br />
+            <br />
             <Button variant='outlined' color='secondary' fullWidth={true} slot='botton' endIcon={<LockOpenRounded /> } >Cambiar</Button>
         </section>
     </div>)
