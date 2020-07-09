@@ -22,7 +22,13 @@
     "/_polyfills": [
       "static/runtime/polyfills.js"
     ],
-    "/login": [
+    "/usuarios": [
+      "static/runtime/webpack.js",
+      "static/css/styles.chunk.css",
+      "static/chunks/styles.js",
+      "static/runtime/main.js"
+    ],
+    "/usuarios/editar/[id]": [
       "static/runtime/webpack.js",
       "static/css/styles.chunk.css",
       "static/chunks/styles.js",

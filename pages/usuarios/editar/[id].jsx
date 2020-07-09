@@ -1,15 +1,24 @@
 import { useState, useEffect } from "react";
 import InputForm from "../../../components/InputForm";
 import { useRouter } from "next/router";
-import { Button } from "@material-ui/core";
+import { Button, Typography, InputAdornment, IconButton } from "@material-ui/core";
+import { LockOpenRounded, Visibility,VisibilityOff, SendSharp } from '@material-ui/icons'
+
+import '../../../styles/editar_usuario.css';
 
 export default () => {
-    const { query:{id} } = useRouter();
+    const { query:{id} } = useRouter();    
     const [value,setValue] = useState({
         nombre:'',
         apPat:'',
         apMat:''
     });
+    const [password,setPassword] = useState({
+        value:'',
+        confirm:'',
+        visibleValue:false,
+        visibleConfirm:false
+    })
     const router = useRouter();
 
     const obtenerUsuario = async () =>{
@@ -49,27 +58,61 @@ export default () => {
         obtenerUsuario()
     },[]);
     return (<div style={{textAlign:'center'}}>
-        <h3>Editando Usuario : # <b>{id}</b></h3>
+        <Typography variant='h3' color='textPrimary'>Edicion</Typography>
+        <section className='seccion-crear-sesion'>
+        <Typography variant='h5' color='textSecondary'>Usuario : # <b>{id}</b></Typography>
 
-        <InputForm
-            value={value.nombre}
-            name='Nombre'
-            event={e=>setValue({...value,nombre:e})}
-        />
-        <InputForm     
-            value={value.apPat}
-            name='ap paterno'
-            event={e=>setValue({...value,apPat:e})}
-        />
-        <InputForm 
-          value={value.apMat}
-          name='ap Materno'
-          event={e=>setValue({...value,apMat:e})}
-        />
-        <br />
-        <br />
-        <Button  variant='contained' color='primary' onClick={sendEditUsuario}>
-            enviar Nuevo usuario.            
-        </Button>    
+            <InputForm
+                value={value.nombre}
+                name='Nombre'
+                event={e=>setValue({...value,nombre:e})}
+            />
+            <InputForm     
+                value={value.apPat}
+                name='ap paterno'
+                event={e=>setValue({...value,apPat:e})}
+            />
+            <InputForm 
+            value={value.apMat}
+            name='ap Materno'
+            event={e=>setValue({...value,apMat:e})}
+            />
+            <br />
+            <br />
+            <Button  variant='outlined' color='primary' endIcon={<SendSharp />} fullWidth={true} slot='botton' onClick={sendEditUsuario}>
+                enviar            
+            </Button>    
+        </section>
+        <section className='seccion-crear-sesion'>
+            <Typography variant='h5' color='textSecondary'>Sesion</Typography>
+            <br />
+            <InputForm 
+                name='password'
+                value={password.value}
+                type={password.visibleValue ? 'text':'password'}
+                event={val=>setPassword({...password,value:val})}
+                InputProps={{
+                    endAdornment:(<InputAdornment position='end'>
+                            <IconButton onClick={()=>setPassword({...password,visibleValue:!password.visibleValue})}>
+                                {password.visibleValue ? <Visibility /> : <VisibilityOff />}
+                            </IconButton>
+                        </InputAdornment>)
+                }}
+            />
+            <InputForm 
+                name='confirmar'
+                value={password.confirm}
+                event={val=>setPassword({...password,confirm:val})}
+                type={password.visibleConfirm ? 'text':'password'}
+                InputProps={{
+                    endAdornment:(<InputAdornment position='end'>
+                    <IconButton onClick={()=>setPassword({...password,visibleConfirm:!password.visibleConfirm})}>
+                                {password.visibleConfirm ? <Visibility /> : <VisibilityOff />}
+                            </IconButton>
+                        </InputAdornment>)
+                }}
+            />
+            <Button variant='outlined' color='secondary' fullWidth={true} slot='botton' endIcon={<LockOpenRounded /> } >Cambiar</Button>
+        </section>
     </div>)
 }

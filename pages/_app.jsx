@@ -16,7 +16,7 @@ class MyApp extends App{
             <Provider store={store}>
                 <Head>
                     <title>Mi Aplicacion</title>
-                    <meta charset="UTF-8"/>
+                    <meta charSet="UTF-8"/>
                     <meta name="description" content="Web App para api NextJS"/>
                     <meta name="keywords" content="api-mi-tiendita-web"/>
                     <meta name="author" content="elgael06@gmail.com"/>
