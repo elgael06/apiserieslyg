@@ -14,12 +14,7 @@ export default function Usuarios(){
         getUsuarios()(dispatch);
     }, [])
 
-    const seleccionarUsuario = usuario => {
-        console.log(usuario)
-    }
-
-    return(
-    <div  >
+    return(<div  >
         <Button 
             color='primary' 
             style={{float:'right'}}
@@ -32,7 +27,7 @@ export default function Usuarios(){
             <table style={{width:'100%'}}>
                 <HeadUsuarios />
                 <tbody>
-                    {listaUsuarios.map(e=><ViewUsuario e={e} seleccionarUsuario={()=>seleccionarUsuario(e)} key={e.id} router={router} />)}
+                    {listaUsuarios.map(e=><ViewUsuario e={e} key={e.id} router={router} />)}
                 </tbody>
             </table>
         </div>

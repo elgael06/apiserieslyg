@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react'
 import { SwipeableDrawer, List, Link, ListItem, ListItemAvatar, ListItemText, Divider, ListItemIcon } from '@material-ui/core';
 import { useSelector } from 'react-redux';
-import { ArrowRight,People } from '@material-ui/icons';
+import { ArrowRight,People, Laptop } from '@material-ui/icons';
 import { useRouter } from 'next/router';
 
 const accesos = [
     {icon:<People />, url:'/usuarios'},
-    {icon:<People />, url:'/usuarios'},
+    {icon:<Laptop />, url:'/series'},
 ]
 
 const DrawerLayout = ({settoggleDrawer,toggleDrawer})=>{

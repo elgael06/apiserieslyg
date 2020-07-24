@@ -14,7 +14,7 @@ export const HeadUsuarios = ()=>(<thead>
     </tr>
 </thead>);
 
-export const ViewUsuario = ({e={},router=e=>e,seleccionarUsuario}) =>(<tr>
+export const ViewUsuario = ({e={},router=e=>e}) =>(<tr>
     <td>{e.id}</td>
     <td>{e.nombre}</td>
     <td>{e.apPaterno}</td>
@@ -27,10 +27,6 @@ export const ViewUsuario = ({e={},router=e=>e,seleccionarUsuario}) =>(<tr>
         </Select>
     </td>
     <td>
-        <Button 
-            variant='outlined' 
-            color='inherit'
-            onClick={seleccionarUsuario} >Sesion</Button>
         <Button 
             variant='outlined' 
             color='primary' 

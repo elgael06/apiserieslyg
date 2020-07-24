@@ -12,6 +12,8 @@ const  Home =()=> {
         <h4>Accesos: </h4>
         <hr/>
         <a href='/usuarios'>Usuarios</a>
+        <hr/>
+        <a href='/series'>Series</a>
     </div>)
 }
 

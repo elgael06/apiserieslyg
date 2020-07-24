@@ -31,6 +31,34 @@ export default async () => ({
             fecha date,
             hora datetime
         )`);
+
+        //series
+        await this.db.exec(`
+        CREATE TABLE IF NOT EXISTS series (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            idUsuario INTEGER nullif '1',
+            nombre TEXT,
+            portada TEXT
+        );
+        CREATE TABLE IF NOT EXISTS capitulos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            uri TEXT NOT NULL,
+            descripcion TEXT nullif 'none',
+            idSerie	INTEGER,
+            FOREIGN KEY (idSerie) REFERENCES series(id)	
+        );
+        CREATE TABLE IF NOT EXISTS categorias (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            descripcion TEXT NOT NULL
+            
+        );
+        CREATE TABLE IF NOT EXISTS CategoriaSerie (
+            id  INTEGER PRIMARY KEY AUTOINCREMENT,
+            idCategoria INTEGER,
+            idSerie	INTEGER,
+            FOREIGN KEY (idSerie) REFERENCES series(id)	,
+            FOREIGN KEY (idCategoria) REFERENCES categorias(id)		
+        );`);
     },
     async newEmpresa(
         nombre      : String,
@@ -62,11 +90,39 @@ export default async () => ({
         password:string,
 
     ){
+        this.existTable();
         const res = await this.db.run('INSERT INTO loginUser(idUsuario,password) VALUES(?,?)',[idUsuario,password]);
         this.db.close();
         console.log('ID',res.lastID);
         return res;
 
-    }
+    },
+    async serie(
+        nombre:string,
+        portada:string
+    ){
+        await this.existTable();
+        const res = await this.db.run(`INSERT INTO series (
+            nombre,
+            portada
+        ) VALUES(?,?)`,[nombre,portada])
+    
+        return res;
+    },
+    async capitulo(
+        idSerie:number,
+        uri:string,
+        descripcion:string
+    ){
+        await this.existTable();
+        const res = await this.db.run(`INSERT INTO capitulos (
+            uri,
+            descripcion,
+            idSerie
+        ) VALUES(?,?,?)`,[uri,descripcion,idSerie]);
+    
+        return res;
+    },
+
 });
 

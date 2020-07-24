@@ -13,6 +13,11 @@ export default () => {
         apPat:'',
         apMat:''
     });
+    const [sesion, setsesion] = useState({
+        message:'Obteniendo datos.',
+        status:false,
+    });
+
     const [password,setPassword] = useState({
         value:'',
         confirm:'',
@@ -32,6 +37,11 @@ export default () => {
             apMat  : usuario.apMaterno
 
         });
+        setsesion({
+            message:data.sesion.message,
+            status:data.sesion.sesion,
+        });
+        setPassword({...password,value:data.sesion.data.pasword})
     }
 
     const sendEditUsuario = async () => {
