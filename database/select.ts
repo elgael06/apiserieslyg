@@ -1,4 +1,6 @@
 import { defaultDB } from ".";
+import { makeDb } from "./mysql/config";
+
 
 export default async ()=>({
     db: await defaultDB(),
@@ -54,39 +56,45 @@ export default async ()=>({
 
     },
     async allSeries(){
+        let datos;
+        const db = makeDb();
         try{
-            const series = await this.db.all (`SELECT 
+            const series = await db.query(`SELECT 
                 series.id,
                 series.idUsuario,
                 upper(series.nombre) as nombre,
                 series.portada,
                 (SELECT count(capitulos.id) from capitulos where capitulos.idSerie = series.id) as capitulos
             from series
-            order by upper(series.nombre),series.id`
-            ).catch(err=>{
-                console.log(err)
-            });
-            this.db.close();
-            return series || [];
-        }catch(error){
-            return error;
+            order by upper(series.nombre),series.id`);
+            console.log('series=>',series);   
+            datos = series;                        
+        }finally{
+            db.close();
         }
+        return  datos;
     },
     async idSeries(id:number){
-        const serie = await this.db.get(`SELECT 
+        const db = makeDb();
+        const serie = await db.query(`SELECT 
             series.id,
             series.idUsuario,
             upper(series.nombre) as nombre,
             series.portada,
             (SELECT count(capitulos.id) from capitulos where capitulos.idSerie = series.id) as capitulos
-         from series WHERE id =?
-         order by upper(series.nombre),series.id`,[id]).catch(()=>({}));
-        this.db.close();
-        return serie;
+         from series WHERE id =${id}
+         order by upper(series.nombre),series.id`)
+         await db.close();
+        return serie[0];
     },
     async capitulos(idSerie:number){
-        const capitulos = await this.db.all(`SELECT * from capitulos WHERE idSerie=?`,[idSerie]).catch(()=>[]);
-        this.db.close();
-        return capitulos || [];
+        const db = makeDb();
+        try{
+            const capitulos = await db.query(`SELECT * from capitulos WHERE idSerie=${idSerie}`)
+            db.close();
+            return capitulos || [];
+        }catch(err){            
+            return {message:'error',err}           
+        }
     }
 });

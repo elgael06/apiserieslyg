@@ -25,6 +25,10 @@
     "/series": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
+    ],
+    "/series/editar/[id]": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
     ]
   }
 }

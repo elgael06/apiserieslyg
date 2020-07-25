@@ -1,4 +1,5 @@
 import { defaultDB } from ".";
+import { makeDb } from "./mysql/config";
 
 export default async () => ({
     db: await defaultDB(),
@@ -101,27 +102,36 @@ export default async () => ({
         nombre:string,
         portada:string
     ){
-        await this.existTable();
-        const res = await this.db.run(`INSERT INTO series (
-            nombre,
-            portada
-        ) VALUES(?,?)`,[nombre,portada])
-    
-        return res.lastID;
+        const db = makeDb();
+        try{
+            const res = await db.query(`INSERT INTO series (
+                nombre,
+                portada
+            ) VALUES('${nombre}','${portada}')`);
+            db.close()        
+            return res;
+        }catch(err){  
+            db.close();       
+            return {message:'error',err}           
+        }
     },
     async capitulo(
         idSerie:number,
         uri:string,
         descripcion:string
     ){
-        await this.existTable();
-        const res = await this.db.run(`INSERT INTO capitulos (
-            uri,
-            descripcion,
-            idSerie
-        ) VALUES(?,?,?)`,[uri,descripcion,idSerie]);
-    
-        return res;
+        const db = makeDb();
+        try{
+            await db.query(`INSERT INTO capitulos (
+                uri,
+                descripcion,
+                idSerie
+            ) VALUES('${uri}','${descripcion}',${idSerie})`)
+            db.close();
+            return {mesage:'se agrego con exito!'};
+        }catch(error){ 
+            db.close()           
+            return {mesage:'error al agregar',error}}
     },
 
 });
