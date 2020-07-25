@@ -1,30 +1,36 @@
-import InputForm from "../../components/InputForm";
+import InputForm from "../../../components/InputForm";
 import { Button } from "@material-ui/core";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 
 
 export default ()=>{
     const history = useRouter();
-    const [capitulos,setCapitulos] = useState([]);
     const [capitulo,setCap] = useState({
         url:'',
         desc:''
     });
     const [serie,setSerie] = useState({
+        id:0,
         nombre:'',
         url:''
-    })
+    });
 
-    const setCapitulo = cap =>{
-        if(capitulo.desc && capitulo.url){
-            setCapitulos([...capitulos,capitulo]);
-            setCap({
-                url:'',
-                desc:''
-            })
-        }else alert('Faltan parametros')
+    useEffect(()=>{
+        console.log(history.query['id'])
+        obtenerSerieId()
+    },[]);
+
+    const obtenerSerieId = async () => {
+        const data = await fetch('/api/series?id='+history.query['id']|| 0);
+        const series = await data.json();
+        setSerie({
+            id:series.id,
+            nombre:series.nombre,
+            url:series.portada
+        })
+
     }
 
     const guardarDatos = () =>{
@@ -37,7 +43,7 @@ export default ()=>{
         const nombre = serie.nombre;
         const portada = serie.url;
 
-        const res = await fetch('/api/series/add',{
+        const res = await fetch('/api/series/edit?id='+serie.id,{
             method:'post',
             body:JSON.stringify({nombre,portada})
         });

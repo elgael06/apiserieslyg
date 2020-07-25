@@ -6,6 +6,6 @@ export const defaultDB = async ()=> await sqlite.open(dirDB);
 export  { default as  insert } from './insert';
 export  { default as  select } from './select';
 export  { default as  update } from './update';
-export  { default as  delete } from './delete';
+export  { default as  borrar } from './borrar';
     
 

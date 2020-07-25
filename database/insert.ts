@@ -107,7 +107,7 @@ export default async () => ({
             portada
         ) VALUES(?,?)`,[nombre,portada])
     
-        return res;
+        return res.lastID;
     },
     async capitulo(
         idSerie:number,

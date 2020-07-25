@@ -55,14 +55,14 @@ export default async ()=>({
     },
     async allSeries(){
         try{
-            const series = await this.db.all(`SELECT 
+            const series = await this.db.all (`SELECT 
                 series.id,
                 series.idUsuario,
-                series.nombre,
+                upper(series.nombre) as nombre,
                 series.portada,
-                count(capitulos.id) as capitulos
-            from series            
-            left join capitulos  on capitulos.idSerie = series.id;`
+                (SELECT count(capitulos.id) from capitulos where capitulos.idSerie = series.id) as capitulos
+            from series
+            order by upper(series.nombre),series.id`
             ).catch(err=>{
                 console.log(err)
             });
@@ -73,12 +73,19 @@ export default async ()=>({
         }
     },
     async idSeries(id:number){
-        const serie = await this.db.get(`SELECT * from series WHERE id =?`,[id]).catch(()=>({}));
+        const serie = await this.db.get(`SELECT 
+            series.id,
+            series.idUsuario,
+            upper(series.nombre) as nombre,
+            series.portada,
+            (SELECT count(capitulos.id) from capitulos where capitulos.idSerie = series.id) as capitulos
+         from series WHERE id =?
+         order by upper(series.nombre),series.id`,[id]).catch(()=>({}));
         this.db.close();
         return serie;
     },
     async capitulos(idSerie:number){
-        const capitulos = await this.db.get(`SELECT * from capitulos WHERE idSerie=?`,[idSerie]).catch(()=>[]);
+        const capitulos = await this.db.all(`SELECT * from capitulos WHERE idSerie=?`,[idSerie]).catch(()=>[]);
         this.db.close();
         return capitulos || [];
     }

@@ -56,5 +56,17 @@ export default async ()=>({
         }catch(error){
             return {message:'error al actualizar',error:error}
         }
+    },
+    async capitulo(idSerie:number,id:number,url:string,desc:string){
+        try{
+            await this.db.run(`UPDATE capitulos 
+                set uri=?,
+                descripcion=?                
+                where idSerie=? and id=? `,[url,desc,idSerie,id]);
+            this.db.close();
+            return {message:`capitulo id=${id} actualizada`}
+        }catch(error){
+            return {message:'error al actualizar',error:error}
+        }
     }
 });
