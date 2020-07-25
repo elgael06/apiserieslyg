@@ -11,7 +11,7 @@ export default async (req:NextApiRequest,res:NextApiResponse)=>{
         res.json(series);
 
     }else if(eliminar && id){
-        const data = await(await borrar()).serie(parseInt(id ));
+        const data = await(await borrar()).serie(parseInt(id.toString() ));
         res.json(data);
     }
     else{
