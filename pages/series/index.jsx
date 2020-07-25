@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Card, List, ListItem, ListItemText, ListItemIcon, ListItemAvatar, Avatar, IconButton } from '@material-ui/core';
+import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Card, List, ListItem, ListItemText, ListItemIcon, ListItemAvatar, Avatar, IconButton, Checkbox } from '@material-ui/core';
 import { useRouter } from 'next/router';
-import { Delete,Edit, Laptop } from '@material-ui/icons';
+import { Delete,Edit, Laptop, CheckBox } from '@material-ui/icons';
 
 const initialModal = {
     open:false,
@@ -13,6 +13,7 @@ export default()=>{
     const router = useRouter();
     const [series,setSeries] = useState([]);   
     const [modal,setModal]  = useState({initialModal}); 
+    const [borrar,setBorrar] = useState(false);
 
     const selectSerie = ({id=0,nombre='',portada=''}) =>{
         setModal({
@@ -56,6 +57,7 @@ export default()=>{
                     <td>NOMBRE</td>
                     <td>CAPITULOS</td>
                     <td>ACCIONES</td>
+                    <td><label>Borrar</label> <Checkbox checked={borrar} onClick={()=>setBorrar(!borrar)} /></td>
                 </tr>
             </thead>
             <tbody>
@@ -68,9 +70,9 @@ export default()=>{
                                 <td>{e.capitulos}</td>
                                 <td>
                                     <Button variant='outlined' onClick={()=>router.push(`/series/editar/${e.id}`)} color='primary' >Editar</Button>
-                                    <Button variant='outlined' onClick={()=>selectSerie(e)} color='inherit'>Capitulos</Button>
-                                    <Button variant='outlined' onClick={()=>borrarId(e.id)} color='secondary'>Borrar</Button>
+                                    <Button variant='outlined' onClick={()=>selectSerie(e)} color='inherit'>Capitulos</Button>                                    
                                 </td>
+                                <td><Button variant='outlined' disabled={!borrar} onClick={()=>borrarId(e.id)} color='secondary'>Borrar</Button></td>
                             </tr>
                         );
                     })
