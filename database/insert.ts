@@ -100,7 +100,8 @@ export default async () => ({
     },
     async serie(
         nombre:string,
-        portada:string
+        portada:string,
+        categorias:Array<any>
     ){
         const db = makeDb();
         try{
@@ -108,7 +109,13 @@ export default async () => ({
                 nombre,
                 portada
             ) VALUES('${nombre}','${portada}')`);
-            db.close()        
+            console.log(res.insertId);
+            
+            console.log(categorias);
+            categorias.forEach(async cat=>{
+                db.query('insert into categoriaserie  (idCategoria,idSerie) value (?,?)',[cat,res.insertId]);
+            });
+            await db.close()        
             return res;
         }catch(err){  
             db.close();       

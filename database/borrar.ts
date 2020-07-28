@@ -17,6 +17,7 @@ export default async () => ({
         const db = makeDb();
         try{
             await db.query('DELETE FROM capitulos where idSerie=?',[id]);
+            await db.query('DELETE FROM categoriaserie where idSerie=?',[id]);
             await db.query('DELETE FROM series where id=?',[id]);
             db.close();
             return {error:false,message:`series #${id} eliminado...`}

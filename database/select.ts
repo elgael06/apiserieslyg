@@ -59,14 +59,49 @@ export default async ()=>({
         let datos;
         const db = makeDb();
         try{
-            const series = await db.query(`SELECT 
-                series.id,
-                series.idUsuario,
-                upper(series.nombre) as nombre,
-                series.portada,
-                (SELECT count(capitulos.id) from capitulos where capitulos.idSerie = series.id) as capitulos
-            from series
-            order by upper(series.nombre),series.id`);
+            const series = await db.query(`SELECT
+            series.id,
+            series.idUsuario,
+            upper(series.nombre) as nombre,
+            series.portada,
+            (SELECT count(capitulos.id) from capitulos where capitulos.idSerie = series.id) as capitulos,
+            tipo,
+            tipo.descripcion,    
+            case estatus
+                when 1 then 'true'
+                else 'false'
+            end as estatus
+        from series
+        left join tipo on tipo.id = tipo
+        order by upper(series.nombre),series.id`);
+            console.log('series=>',series);   
+            datos = series;                        
+        }finally{
+            db.close();
+        }
+        return  datos;
+    },
+
+    async seriesName(name:string){
+        let datos;
+        const db = makeDb();
+        try{
+            const series = await db.query(`SELECT
+            series.id,
+            series.idUsuario,
+            upper(series.nombre) as nombre,
+            series.portada,
+            (SELECT count(capitulos.id) from capitulos where capitulos.idSerie = series.id) as capitulos,
+            tipo,
+            tipo.descripcion,    
+            case estatus
+                when 1 then 'true'
+                else 'false'
+            end as estatus
+        from series
+        left join tipo on tipo.id = tipo  
+        where  series.nombre like '%${name}%'
+        order by upper(series.nombre),series.id `);
             console.log('series=>',series);   
             datos = series;                        
         }finally{
@@ -95,6 +130,17 @@ export default async ()=>({
             return capitulos || [];
         }catch(err){            
             return {message:'error',err}           
+        }
+    },
+    async categorias(){
+        const db = makeDb();
+        try{
+            const lista = await db.query(`select * from categorias`); 
+            db.close();
+            return lista;
+        }catch(error){
+            db.close();
+            return {message:'error',error}
         }
     }
 });

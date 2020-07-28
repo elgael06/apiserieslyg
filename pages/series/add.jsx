@@ -1,31 +1,20 @@
 import InputForm from "../../components/InputForm";
-import { Button } from "@material-ui/core";
+import { Button, Badge } from "@material-ui/core";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import ModalCategorias from "../../components/Series/ModalCategorias";
 
 
 
 export default ()=>{
     const history = useRouter();
-    const [capitulos,setCapitulos] = useState([]);
-    const [capitulo,setCap] = useState({
-        url:'',
-        desc:''
-    });
     const [serie,setSerie] = useState({
         nombre:'',
         url:''
-    })
+    });
+    const [categorias,setCategorias] = useState([]);
+    const [modal,setModal] = useState(false);
 
-    const setCapitulo = cap =>{
-        if(capitulo.desc && capitulo.url){
-            setCapitulos([...capitulos,capitulo]);
-            setCap({
-                url:'',
-                desc:''
-            })
-        }else alert('Faltan parametros')
-    }
 
     const guardarDatos = () =>{
         if(serie.nombre&& serie.url){
@@ -39,7 +28,7 @@ export default ()=>{
 
         const res = await fetch('/api/series/add',{
             method:'post',
-            body:JSON.stringify({nombre,portada})
+            body:JSON.stringify({nombre,portada,categorias})
         });
         const data = await res.json()
         console.log(data);
@@ -59,11 +48,21 @@ export default ()=>{
             value={serie.url}
             event={url=>setSerie({...serie,url})}
         />
+        <Button color='secondary' onClick={()=>setModal(true)}>
+            Categorias: {categorias.length}
+        </Button>
+        
         <br/>
         <br/>
         <Button onClick={guardarDatos} color='primary' variant='contained'>
-            Guardar
+            Guardar           
         </Button>
+        <ModalCategorias
+            open={modal}
+            onClose={()=>setModal(false)}
+            selected={categorias}
+            getSelected={setCategorias}
+        />
     </div>);
 }
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Card, List, ListItem, ListItemText, ListItemIcon, ListItemAvatar, Avatar, IconButton, Checkbox } from '@material-ui/core';
+import { Button, Dialog, DialogTitle, DialogContent, TextField, DialogActions, List, ListItem, ListItemText, ListItemIcon, ListItemAvatar, Avatar, IconButton, Checkbox, Badge, Switch, ListItemSecondaryAction, ListSubheader } from '@material-ui/core';
 import { useRouter } from 'next/router';
-import { Delete,Edit, Laptop, CheckBox } from '@material-ui/icons';
+import { Delete,Edit, Laptop, ListAlt, Image, Add, AddCircle, Send } from '@material-ui/icons';
 
 const initialModal = {
     open:false,
@@ -41,45 +41,69 @@ export default()=>{
         await obtenerSeries();
      }
     return(<><div>
-        <Button 
-            color='primary' 
-            style={{float:'right'}}
-            onClick={()=>router.push('/series/add')}
-            variant='contained'>
-            Agregar
-        </Button>
+
         <h3>Listado de series</h3>
-        <div  style={{border:'1px solid #bdbdbd',height:300,width:'85%',overflow:'auto'}}>
-        <table style={{width:'100%'}}>
-            <thead>
-                <tr>
-                    <td>ID</td>
-                    <td>NOMBRE</td>
-                    <td>CAPITULOS</td>
-                    <td>ACCIONES</td>
-                    <td><label>Borrar</label> <Checkbox checked={borrar} onClick={()=>setBorrar(!borrar)} /></td>
-                </tr>
-            </thead>
-            <tbody>
+
+            <List subheader={<ListSubheader style={{background:'#FFFFFF98'}}>Series</ListSubheader>} style={{height:550,maxWidth:400,overflow:'auto',display:'inline-block'}} >
                 {
-                    series.map(e=>{
-                        return(
-                            <tr key={e.id}>
-                                <td>{e.id}</td>
-                                <td>{e.nombre}</td>
-                                <td>{e.capitulos}</td>
-                                <td>
-                                    <Button variant='outlined' onClick={()=>router.push(`/series/editar/${e.id}`)} color='primary' >Editar</Button>
-                                    <Button variant='outlined' onClick={()=>selectSerie(e)} color='inherit'>Capitulos</Button>                                    
-                                </td>
-                                <td><Button variant='outlined' disabled={!borrar} onClick={()=>borrarId(e.id)} color='secondary'>Borrar</Button></td>
-                            </tr>
-                        );
-                    })
+                series.map(serie=>{
+                   
+                    return(<ListItem button fullWidth about={serie.id} >
+                        <ListItemAvatar>
+                            <Avatar style={{width:50,height:50}} src={serie.portada} alt={`Serie Numero ${serie.id}`} />                        
+                        </ListItemAvatar>
+                        <ListItemText 
+                            primary={serie.nombre} 
+                            secondary={serie.descripcion} 
+                        />  
+                        <ListItemIcon>
+                            <IconButton variant='outlined' onClick={()=>router.push(`/series/editar/${serie.id}`)} color='inherit'>
+                                <Edit />
+                            </IconButton>
+                            <IconButton variant='outlined' onClick={()=>selectSerie(serie)} color='primary' >
+                                <Badge badgeContent={serie.capitulos} color="primary">                        
+                                    <Laptop/>
+                                </Badge>
+                            </IconButton>
+                            <IconButton variant='outlined' disabled={!borrar} onClick={()=>borrarId(serie.id)} color='secondary'>
+                                <Delete />
+                            </IconButton>                      
+                            <Switch edge='end'  checked={serie.estatus} />
+                        </ListItemIcon>             
+                    </ListItem>);
+                })  
                 }
-            </tbody>
-        </table>
-        </div>
+            </List>
+
+
+            <List style={{height:350,maxWidth:400,float:'left'}} subheader={<ListSubheader>Opciones</ListSubheader>} >
+
+                <ListItem button onClick={()=>setBorrar(!borrar)}>
+                    <ListItemIcon>
+                        <Delete />
+                    </ListItemIcon>
+                    <ListItemText style={{margin:'0 20px'}} primary='Eliminar Series' />
+                    <ListItemSecondaryAction>
+                        <Switch edge='end'  checked={borrar} />
+                    </ListItemSecondaryAction>
+                </ListItem>
+
+                <ListItem button onClick={()=>router.push('/series/add')}>
+                    <ListItemIcon>
+                        <Add />
+                    </ListItemIcon>
+                    <ListItemText style={{margin:'0 20px'}} primary='Nueva serie' />
+                    <ListItemSecondaryAction>
+
+                        <IconButton 
+                            color='primary'                             
+                            variant='contained'>
+                                <Send />
+                        </IconButton>
+                    </ListItemSecondaryAction>
+                </ListItem>
+            </List>
+            
     </div>
     
     <ModalCapitulos 
