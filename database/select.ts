@@ -96,7 +96,6 @@ export default async ()=>({
                 end as estatus
             from series
             left join tipo on tipo.id = tipo
-        where  series.nombre like '%s%'
             order by series.id desc
         limit  ${number}`;
 
