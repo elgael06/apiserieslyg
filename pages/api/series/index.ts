@@ -3,11 +3,14 @@ import { select, borrar } from "../../../database";
 
 export default async (req:NextApiRequest,res:NextApiResponse)=>{
 
-    const {id=0,eliminar=false,search='' } = req.query;
+    const {id=0,eliminar=false,search='',top=0 } = req.query;
 
     if(search!=""){
         console.log(search);
         const series = await(await select()).seriesName(search.toString());
+        res.json(series);
+    }if(top>0){
+        const series = await(await select()).topSeries(parseInt(top.toString()));
         res.json(series);
     }else if(id&& !eliminar){
         console.log(id);

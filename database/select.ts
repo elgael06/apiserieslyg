@@ -81,7 +81,38 @@ export default async ()=>({
         }
         return  datos;
     },
+    async topSeries(number:number){
+        let query:string = `SELECT
+                series.id,
+                series.idUsuario,
+                upper(series.nombre) as nombre,
+                series.portada,
+                (SELECT count(capitulos.id) from capitulos where capitulos.idSerie = series.id) as capitulos,
+                tipo,
+                tipo.descripcion,
+                case estatus
+                    when 1 then 'true'
+                    else 'false'
+                end as estatus
+            from series
+            left join tipo on tipo.id = tipo
+        where  series.nombre like '%s%'
+            order by series.id desc
+        limit  ${number}`;
 
+        let datos;
+        const db = makeDb();
+        try{
+            const series = await db.query(query);
+            console.log('series=>',series);   
+            datos = series;                        
+        }finally{
+            db.close();
+        }
+        return  datos;
+
+
+    },
     async seriesName(name:string){
         let datos;
         const db = makeDb();
