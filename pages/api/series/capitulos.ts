@@ -2,11 +2,15 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { insert, select, update, borrar } from "../../../database";
 
 export default async (req:NextApiRequest,res:NextApiResponse)=>{
-    const {id=0,nuevo=false,idSerie=0,eliminar=false}:any = req.query;
+    const {buscar=0,id=0,nuevo=false,idSerie=0,eliminar=false}:any = req.query;
 
     console.log(id,nuevo);
 
-    if(id==0 && !nuevo){
+    if(buscar){
+        console.log('id');        
+        const datos = await (await select()).capitulosID(buscar);
+        res.json(datos);
+    }else if(id==0 && !nuevo){
         const datos = await (await select()).capitulos(idSerie);
         res.json(datos);
     }else if(nuevo){
@@ -20,7 +24,8 @@ export default async (req:NextApiRequest,res:NextApiResponse)=>{
     }else if( eliminar && id ){
         const data = await(await borrar()).capitulo(id);
         res.json(data);
-    }
-    else
+    } else
         res.json({id,nuevo});
+
 }
+

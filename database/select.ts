@@ -1,5 +1,6 @@
 import { defaultDB } from ".";
 import { makeDb } from "./mysql/config";
+import React from 'react';
 
 
 export default async ()=>({
@@ -155,9 +156,29 @@ export default async ()=>({
     async capitulos(idSerie:number){
         const db = makeDb();
         try{
-            const capitulos = await db.query(`SELECT * from capitulos WHERE idSerie=${idSerie}`)
+            const capitulos:Array<any> = await db.query(`SELECT * from capitulos WHERE idSerie=${idSerie}`) || [];
             db.close();
-            return capitulos || [];
+            
+        //    await capitulos.forEach(async dato=>{
+        //         dato['url'] = await fetchPage(dato['url']);
+        //     });
+
+            return await checarCapituos(capitulos) || [];
+        }catch(err){            
+            return {message:'error',err}           
+        }
+    },
+    async capitulosID(id:number){
+        const db = makeDb();
+        try{
+            const capitulos:Array<any> = await db.query(`SELECT * from capitulos WHERE id=${id}`) || [];
+            db.close();
+            
+        //    await capitulos.forEach(async dato=>{
+        //         dato['url'] = await fetchPage(dato['url']);
+        //     });
+
+            return await checarCapituos(capitulos) || [];
         }catch(err){            
             return {message:'error',err}           
         }
@@ -174,3 +195,20 @@ export default async ()=>({
         }
     }
 });
+
+async function checarCapituos(capitulos:Array<any>){    
+    for (let i=0;i<capitulos.length;i++){
+        const lista = capitulos[i]; 
+        
+        if(lista.uri.includes('http://www.mediafire.com/file/')){
+            lista['html'] = await fetchPage(lista.uri );
+        }
+
+        capitulos[i] = lista;
+    }
+
+    return capitulos;
+    
+}
+async  function fetchPage(url:string){return await (await fetch(url)).text() ;}
+
