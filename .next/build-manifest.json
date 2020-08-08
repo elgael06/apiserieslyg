@@ -22,10 +22,12 @@
     "/_polyfills": [
       "static/runtime/polyfills.js"
     ],
+    "/series": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
     "/series/playSerie": [
       "static/runtime/webpack.js",
-      "static/css/styles.chunk.css",
-      "static/chunks/styles.js",
       "static/runtime/main.js"
     ]
   }

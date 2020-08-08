@@ -1,7 +1,5 @@
 import { defaultDB } from ".";
 import { makeDb } from "./mysql/config";
-import React from 'react';
-
 
 export default async ()=>({
     db: await defaultDB(),

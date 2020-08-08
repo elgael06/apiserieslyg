@@ -151,7 +151,13 @@ const ModalCapitulos = ({
 
     const handleClose = () =>{
         console.log('listo');
-
+        setCap({
+            index:0,
+            url:'',
+            desc:'',
+            nuevo:true
+        });
+        setCapitulos([]);
         return onClose();
     }
 
@@ -215,15 +221,12 @@ const ModalCapitulos = ({
     const eliminarCap = async  cap =>{
         console.log(cap);
         const res = await(await fetch('/api/series/capitulos?eliminar=true&id='+cap.index)).json();
-        console.log('====================================');
-        console.log(res);
-        console.log('====================================');
         await obtenerCapitulos();
     }
 
     return(<Dialog 
         open={open}  
-        onClose={onClose} 
+        onClose={handleClose} 
         aria-labelledby="form-dialog-title" 
     >
         <DialogTitle>Capitulos de: {serie.nombre}</DialogTitle>

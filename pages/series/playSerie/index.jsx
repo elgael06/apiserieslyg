@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import './style.css';
 
 
 export default ()=>{
