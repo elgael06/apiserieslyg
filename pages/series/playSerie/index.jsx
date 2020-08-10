@@ -22,7 +22,7 @@ export default ()=>{
             div.innerHTML = res[0].html;
             console.log(div);
             const boton = div.querySelector('.input.popsok');
-            console.log(boton.href); 
+            console.log('url video',boton.href); 
             setLink(boton.href);           
         }catch(e){
             console.log('====================================');
@@ -43,7 +43,7 @@ export default ()=>{
             background:'#000000'
         }}>
             <video width='100%' height='100%'
-                controls >
+                controls about={'dfgh'} >
                     <source src={link} />
                     Your App does not support video.
             </video>
