@@ -18,20 +18,18 @@ export default ()=>{
         try{
             const res = await (await fetch(`/api/series/capitulos?buscar=${id}`)).json();
             const div = document.createElement('div');
-            console.log(res[0]);
+            console.log('Capitulo => ',res[0]);
             div.innerHTML = res[0].html;
             console.log(div);
             const boton = div.querySelector('.input.popsok');
             console.log('url video',boton.href); 
             setLink(boton.href);           
         }catch(e){
-            console.log('====================================');
             console.log(e);
-            console.log('====================================');
         }
     }
 
-    return link!="" ? (<div 
+    return  (<div 
         style={{
             position:'fixed',
             display:'flex',
@@ -42,12 +40,14 @@ export default ()=>{
             zIndex:9999,
             background:'#000000'
         }}>
-            <video width='100%' height='100%'
-                controls about={'dfgh'} >
-                    <source src={link} />
-                    Your App does not support video.
-            </video>
-        </div>) : null;
+            {link!="" ?  
+                <video width='100%' height='100%'
+                    controls about={'dfgh'} >
+                        <source src={link} />
+                        Your App does not support video.
+                </video> 
+            :   null}
+        </div>);
 }
 
 
