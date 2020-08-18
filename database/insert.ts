@@ -140,6 +140,25 @@ export default async () => ({
             db.close()           
             return {mesage:'error al agregar',error}}
     },
-
+    async login(email:string,password:string,usuario:string){        
+        try{
+            const db = makeDb();
+            await db.query(`call add_login(?,?,?);`,[email,password,usuario]);
+            db.close();
+            return true;
+        }catch(e){
+            return false;
+        }
+    },
+    async addUsuarioSesion (idSesion:string,nombre:string){
+        try{
+            const db = makeDb();
+            await db.query(`insert into usuarios (idSesion,usuarioNombre) value(?,?);`,[idSesion,nombre]);
+            db.close();
+            return true;
+        }catch(e){
+            return false;
+        }
+    }
 });
 

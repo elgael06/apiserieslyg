@@ -191,8 +191,47 @@ export default async ()=>({
             db.close();
             return {message:'error',error}
         }
+    },
+    async getSesion(email:string,password:string){
+        console.log('bd maker')
+        const db = makeDb();
+        console.log('get Sesion',email,password);
+        try{
+            const usuarios = await db.query(`call getSesion(?,?);`,[email,password]) || [];
+            await db.close();
+            console.log(usuarios[0]);
+                    
+            if(usuarios.length){
+                interface listaUsuario {
+                    nombre:string,
+                    id:string
+                }
+    
+                let lista:Array<listaUsuario> = []; 
+    
+                const res = {
+                    id:usuarios[0][0].idLogin,
+                    email:usuarios[0][0].email,
+                    passw:usuarios[0][0].contrasenia,
+                    sesiones:lista
+                };
+    
+                for (let usuario of usuarios[0]){
+                    res.sesiones.push({
+                        nombre:usuario.nombreUsuario,
+                        id:usuario.idUsuario
+                    });
+                }
+    
+                return res;
+            }
+            return false;
+        }catch(e){
+            return false;
+        }
     }
 });
+
 
 async function checarCapituos(capitulos:Array<any>){    
     for (let i=0;i<capitulos.length;i++){

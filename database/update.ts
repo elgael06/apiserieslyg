@@ -74,5 +74,17 @@ export default async ()=>({
         }catch(error){
             return {message:'error al actualizar',error:error}
         }
+    },
+    async contraseniaSesion(email:string,password:string,newPass:string){
+        const db = makeDb();
+        try{
+            await db.query(` UPDATE 
+            login 
+            SET contrasenia=? 
+        WHERE email=? and contrasenia=?;`,[newPass,email,password]) || [];
+            return true;
+        }catch(e){
+            return false;
+        }
     }
 });

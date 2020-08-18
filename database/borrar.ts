@@ -36,6 +36,16 @@ export default async () => ({
             db.close()
             return {error:true,message:`Error al eliminado capitulos #${id} !!!`,messageError:error}
         }
+    },
+    async deleteUsuarioSesion(id:string){
+        const db = makeDb();
+        try{
+            await db.query('DELETE FROM usuarios where idusuarios=?',[id]);
+            db.close();
+            return true;
+        }catch(e){
+            return false;
+        }
     }
 
 });

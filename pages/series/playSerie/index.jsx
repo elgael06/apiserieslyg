@@ -40,13 +40,19 @@ export default ()=>{
             zIndex:9999,
             background:'#000000'
         }}>
-            {link!="" ?  
+            {link!="" ?  <>
+            {/* <iframe 
+                width="640%" 
+                height="360%" 
+                frameborder="0" 
+                src={link} 
+                allowfullscreen ></iframe> */}
+
                 <video width='100%' height='100%'
                     controls about={'dfgh'} >
                         <source src={link} />
-                        Your App does not support video.
                 </video> 
-            :   null}
+           </>:   null}
         </div>);
 }
 
