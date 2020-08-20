@@ -1,20 +1,33 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { select, insert, borrar } from '../../../database';
+import { select, insert, borrar, update } from '../../../database';
 
 
 export default async (req:NextApiRequest, res:NextApiResponse) => {
-    const { email="",passw="",usuario=null } = req.body;
+    const { emailRecovery='', email="",passw="",newPassw,usuario=null } = req.body;
     const { idSesion='',nuevoUsuario='' } = req.query;
 
     console.log('entro');
     
-    if(email && passw && req.method=='POST'){
+    if(email && passw && newPassw && req.method=='POST'){
+        /** canbiar contraseña */
+        const datos = await (await select()).getSesion(email.toString(),passw.toString());
+        if(datos){
+            const cambio = await (await update()).updatePassword(email,newPassw);
+            res.json({...cambio});
+        }else {
+            res.json({message:'error al cambiar contraseña'});
+        }
+    }else if(email && passw && req.method=='POST'){
         /**
          * inicio de sesion.
          */
         const datos = await (await select()).getSesion(email.toString(),passw.toString());
         res.json(datos);
-    }else if(req.method == 'POST' && usuario){
+    }if(req.method == 'POST' && emailRecovery){
+        /**recuperar contraseña */
+        const data = await(await update()).recoveryPassword(emailRecovery);
+        res.json({...data});
+    }else if(req.method == 'POST' && usuario && email && passw){
         /**
          * crear nueva sesion.
          */
