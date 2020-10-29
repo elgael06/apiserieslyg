@@ -1,1 +1,0 @@
-{"ast":null,"code":"import sqlite from 'sqlite';\nexport const dirDB = './database.sqlite';\nexport const defaultDB = async () => await sqlite.open(dirDB);\nexport { default as insert } from './insert';\nexport { default as select } from './select';\nexport { default as update } from './update';","map":null,"metadata":{},"sourceType":"module"}

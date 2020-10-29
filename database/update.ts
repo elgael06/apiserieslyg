@@ -116,6 +116,8 @@ export default async ()=>({
             password += dato[getRandomInt(0,dato.length)].toString();
         }
 
+        console.log('password=>',password);
+        
         const resp =  await this.updatePassword(email,password);
 
         const pass_new = resp[1] || null;
